@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100;300;400;500;700;900&display=swap');
+
+/* body {
+  margin: 0px;
+  font-family: 'Geologica', sans-serif;
+} */
+
+.LoginPageContainer {
+  height: 83vh;
+}
+
+.LoginPageInnerContainer {
+  display: flex;
+  /* min-height: 100%; */
+  position: fixed;
+}
+
+.LoginPageInnerContainer .ImageContianer {
+  width: 50%;
+  /* min-height: 100%; */
+  padding-right: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+}
+
+.LoginPageInnerContainer .ImageContianer .GroupImage {
+  width: 100%;
+  display: block;
+}
+
+.LoginPageInnerContainer .LoginFormContainer {
+  flex-grow: 2;
+  background: #242424 !important;
+  /* min-height: 100%; */
+  padding: 93px;
+  position: relative;
+  background: url(https://i.imgur.com/BKyjjFa.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  padding-top: 120px;
+  padding-left: 194px;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .LogoContainer .logo {
+  height: 60px;
+  margin-bottom: 30px;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .header {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .subHeader {
+  color: #9aa4ad;
+  margin-top: 5px;
+  margin-bottom: 40px;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .inputContainer {
+  color: #ffffff;
+  margin: 20px 0px;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .inputContainer .label {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 7px;
+  margin-bottom: 10px;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .inputContainer .label .labelIcon {
+  width: 20px;
+  margin-right: 10px;
+  display: block;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .inputContainer .input {
+  display: block;
+  width: calc(200% - 20px);
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid #d6d7db;
+  border-radius: 5px;
+  margin-top: 5px;
+  outline: 0px !important;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .OptionsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.LoginFormContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: space-around;
+}
+
+.LoginFormInnerContainer {
+  max-width: 500px;
+}
+
+
+.LoginPageInnerContainer .LoginFormContainer .ForgotPasswordLink {
+  color: #e7483b;
+  text-decoration: none;
+}
+
+.LoginFormContainer .LoginFormInnerContainer .LoginButton {
+  margin-top: 30px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: #2e1f7a;
+  border: 0px;
+  outline: 0px;
+  cursor: pointer;
+}
+
+.LoginFormContainer .LoginFormInnerContainer .LoginButton:active {
+  background-color: #4520ff;
+}
+
+
+@media only screen and (max-width: 1200px) {
+  .LoginPageInnerContainer .ImageContianer {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .LoginPageInnerContainer .ImageContianer {
+    display: none;
+  }
+
+  .LoginFormContainer {
+    justify-content: center;
+  }
+}
+
+
+
+.buttologin {
+  cursor: pointer;
+  position: relative;
+  padding: 4px 40px;
+  font-size: 18px;
+  margin-top: 15px;
+  color:floralwhite;
+  border: 2px solid rgb(193, 163, 98);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+}
+
+.buttologin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: rgb(193, 163, 98);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.buttologin:hover::before {
+  scale: 3;
+}
+
+.buttologin:hover {
+  color: floralwhite;
+  scale: 1.1;
+  box-shadow: 0 0px 20px rgba(193, 163, 98,0.4);
+}
+
+.buttologin:active {
+  scale: 1;
+}

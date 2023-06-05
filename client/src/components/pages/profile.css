@@ -1,0 +1,62 @@
+.profile {
+    background-color: #242424;
+    text-align: -webkit-center;
+    height: 87vh;
+  }
+  
+  .main-user-img img {
+    border: 2px solid white;
+    border-radius: 160px;
+    /* padding: 100px; */
+    height: 256px;
+  }
+  
+  .main-user-img p {
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  
+  .main-file p {
+    color: white;
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+  
+  .main-file {
+    margin-top: 20px;
+    text-align: -webkit-center;
+  }
+  
+  .main-file h3 {
+    border: 2px solid white;
+    width: 300px;
+    color: aliceblue;
+    font-size: 16px;
+    padding: 20px;
+  }
+  
+  .use-file {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: -webkit-center;
+  }
+  
+  .main-user,
+  .main-email {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: start;
+    column-gap: 20px;
+  }
+  
+  .webprofile {
+    margin-top: 50px;
+  }
