@@ -19,7 +19,7 @@ const Login = () => {
     const handleLogin = async () => {
         // console.log( email, password);
 
-        let result = await fetch('http://localhost:8000/login', {
+        let result = await fetch('https://owngpt-api.vercel.app/login', {
             method: "POST",
             body: JSON.stringify({ email, password }),
             headers: {
