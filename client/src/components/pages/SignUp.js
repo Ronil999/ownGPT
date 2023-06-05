@@ -19,7 +19,7 @@ const SignUp = () => {
     const collectData = async () => {
         // console.log(name, email, password);
 
-        let result = await fetch('http://localhost:8000/register', {
+        let result = await fetch('https://owngpt-api.vercel.app/register', {
             method: "POST",
             body: JSON.stringify({ name, email, password }),
             headers: {
