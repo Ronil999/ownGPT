@@ -7,7 +7,7 @@ const History = () => {
 
   useEffect(() => {
     const fetchHistory = async () => {
-      const response = await fetch(`http://localhost:8000/history/${userId}`);
+      const response = await fetch(`https://owngpt-api.vercel.app/${userId}`);
       const result = await response.json();
       if (Array.isArray(result)) {
         setHistory(result);
