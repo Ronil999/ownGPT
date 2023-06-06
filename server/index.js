@@ -24,19 +24,25 @@ app.get("/", async (req,res) => {
 });
 
 app.post("/register", async (req, res) => {
-    // Check if email already exists
-    let existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
-        res.send("Email already exists");
+    // Check if all fields are filled
+    if (!req.body.name || !req.body.email || !req.body.password) {
+        res.status(400).send("All fields are mandatory");
     } else {
-        // Create new user
-        let user = new User(req.body);
-        let result = await user.save();
-        result = result.toObject();
-        delete result.password;
-        res.send(result);
+        // Check if email already exists
+        let existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            res.status(400).send("Email already exists");
+        } else {
+            // Create new user
+            let user = new User(req.body);
+            let result = await user.save();
+            result = result.toObject();
+            delete result.password;
+            res.send(result);
+        }
     }
 });
+
 
 
 app.post("/login", async (req, res) => {
@@ -47,15 +53,16 @@ app.post("/login", async (req, res) => {
             if (req.body.password === user.password) {
                 res.send(user)
             } else {
-                res.send({ error: "Enter Valid Password" });
+                res.status(400).send({ error: "Incorrect password" });
             }
         } else {
-            res.send({ error: "User not found" });
+            res.status(400).send({ error: "User not found" });
         }
     } else {
-        res.send({ error: "Please enter email and password" });
+        res.status(400).send({ error: "Please enter email and password" });
     }
 });
+
 
 
 app.post('/textify/api/generate', async (req, res) => {
