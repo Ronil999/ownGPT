@@ -16,20 +16,34 @@ const SignUp = () => {
         }
     })
 
+    
     const collectData = async () => {
-        // console.log(name, email, password);
-
-        let result = await fetch('https://owngpt-api.vercel.app/register', {
-            method: "POST",
-            body: JSON.stringify({ name, email, password }),
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
-        result = await result.json();
-        localStorage.setItem("user",JSON.stringify(result));
-        // console.log(result)
-        navigate('/')
+        // Check if all fields are filled
+        if (!name || !email || !password) {
+            alert("All fields are mandatory");
+        } else if (!validateEmail(email)) {
+            alert("Please enter a valid email address");
+        } else {
+            let result = await fetch('https://owngpt-api.vercel.app/register', {
+                method: "POST",
+                body: JSON.stringify({ name, email, password }),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+            result = await result.json();
+            if (result === "Email already exists") {
+                alert(result);
+            } else {
+                localStorage.setItem("user", JSON.stringify(result));
+                navigate('/')
+            }
+        }
+    }
+    
+    const validateEmail = (email) => {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
 
     return (
