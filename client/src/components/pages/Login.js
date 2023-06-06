@@ -17,8 +17,6 @@ const Login = () => {
     })
 
     const handleLogin = async () => {
-        // console.log( email, password);
-
         let result = await fetch('https://owngpt-api.vercel.app/login', {
             method: "POST",
             body: JSON.stringify({ email, password }),
@@ -27,9 +25,12 @@ const Login = () => {
             },
         });
         result = await result.json();
-        localStorage.setItem("user",JSON.stringify(result));
-        // console.log(result)
-        navigate('/')
+        if (result.error) {
+            alert(result.error);
+        } else {
+            localStorage.setItem("user", JSON.stringify(result));
+            navigate('/')
+        }
     }
 
     return (
