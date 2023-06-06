@@ -37,7 +37,7 @@ const Textify = () => {
     const history = async (userInput, aiOutput) => {
         const userId = JSON.parse(localStorage.getItem('user'))._id;
 
-        let result = await fetch('http://localhost:8000/history', {
+        let result = await fetch('https://owngpt-api.vercel.app/history', {
             method: "POST",
             body: JSON.stringify({ userId, userInput, aiOutput }),
             headers: {
