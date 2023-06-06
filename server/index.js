@@ -19,6 +19,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/", async (req,res) => {
+    res.send("App is Working");
+});
+
 app.post("/register", async (req, res) => {
     // Check if email already exists
     let existingUser = await User.findOne({ email: req.body.email });
