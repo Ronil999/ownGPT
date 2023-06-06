@@ -11,7 +11,7 @@ const Textify = () => {
 
     const handleClick = async (e) => {
         setLoading(true);
-        const response = await fetch('http://localhost:8000/textify/api/generate', {
+        const response = await fetch('https://owngpt-api.vercel.app/textify/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
