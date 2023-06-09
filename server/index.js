@@ -4,6 +4,8 @@ const User = require("./db/User");
 const History = require("./db/History");
 var cors = require('cors');
 require('dotenv').config();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -32,8 +34,14 @@ app.post("/register", async (req, res) => {
         if (existingUser) {
             res.status(400).send("Email already exists");
         } else {
+            // Hash password
+            const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
             // Create new user
-            let user = new User(req.body);
+            let user = new User({
+                ...req.body,
+                password: hashedPassword
+            });
             let result = await user.save();
             result = result.toObject();
             delete result.password;
@@ -42,14 +50,13 @@ app.post("/register", async (req, res) => {
     }
 });
 
-
-
 app.post("/login", async (req, res) => {
     if (req.body.password && req.body.email) {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             // Check if password is correct
-            if (req.body.password === user.password) {
+            const match = await bcrypt.compare(req.body.password, user.password);
+            if (match) {
                 user = user.toObject();
                 delete user.password;
                 res.send(user)
@@ -63,7 +70,6 @@ app.post("/login", async (req, res) => {
         res.status(400).send({ error: "Please enter email and password" });
     }
 });
-
 
 
 app.post('/textify/api/generate', async (req, res) => {
