@@ -7,7 +7,7 @@ const History = () => {
 
   useEffect(() => {
     const fetchHistory = async () => {
-      const response = await fetch(`https://owngpt-api.vercel.app/history/${userId}`);
+      const response = await fetch(`http://localhost:8000/history/${userId}`);
       const result = await response.json();
       if (Array.isArray(result)) {
         setHistory(result);
@@ -27,48 +27,64 @@ const History = () => {
         </h1>
       ) : (
         <>
-          <h2 style={{textAlign: 'center',margin:"15px"}}>History</h2>
+          <h2 style={{ textAlign: 'center', margin: "15px" }}>History</h2>
           <ul style={{ listStyleType: 'none' }}>
             {history
               .slice()
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               .map((item, index) => (
-                <div className="form-control3">
-                  <li key={index}>
-                    <p className='date' style={{marginBottom:"0px"}}>
-                      <strong>Date:</strong>{' '}
+                <div className="form-control3" key={index}>
+                  <li>
+                    <p className="date" style={{ marginBottom: "0px" }}>
+                      <strong >Date:</strong>{" "}
                       {new Date(item.date).toLocaleDateString()}
-                      <strong>Time:</strong>{' '}
+                      <strong style={{marginLeft:"20px"}}>Time:</strong>{" "}
                       {new Date(item.date).toLocaleTimeString()}
                     </p>
                     <div
                       className="form-control"
                       contentEditable={false}
                       style={{
-                        whiteSpace: 'pre-wrap',
-                        overflowWrap: 'break-word',
-                        backgroundColor:"mediumturquoise",
-                        border:"0px",
-                        borderRadius:"0rem"
-                      }}
-                    >Question: {item.userInput}</div>
-                    <div
-                      className="form-control"
-                      contentEditable={false}
-                      style={{
-                        whiteSpace: 'pre-wrap',
-                        overflowWrap: 'break-word',
-                        marginBottom:"2rem",
-                        backgroundColor: "darkseagreen",
-                        border:"0px",
-                        borderRadius:"0rem"
+                        whiteSpace: "pre-wrap",
+                        overflowWrap: "break-word",
+                        backgroundColor: "mediumturquoise",
+                        border: "0px",
+                        borderRadius: "0rem",
                       }}
                     >
-                      {item.aiOutput}
+                      Question: {item.userInput}
                     </div>
+                    {item.app === "Imaginex" ? (
+                      <div style={{textAlign:"center" , padding:"15px" , border:"2px solid black", marginBottom:"2rem"}}> 
+                        {item.aiOutput.map((url, index) => (
+                          <img
+                            key={index}
+                            src={url}
+                            alt={`Generated Image ${index + 1}`}
+                            style={{marginRight:"15px"}}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <div
+                        className="form-control"
+                        contentEditable={false}
+                        style={{
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word",
+                          marginBottom: "2rem",
+                          backgroundColor: "darkseagreen",
+                          border: "0px",
+                          borderRadius: "0rem",
+                        }}
+                      >
+                        {item.aiOutput}
+                      </div>
+                    )}
                   </li>
                 </div>
               ))}
+
           </ul>
         </>
       )}
