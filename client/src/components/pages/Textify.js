@@ -11,7 +11,7 @@ const Textify = () => {
 
     const handleClick = async (e) => {
         setLoading(true);
-        const response = await fetch('https://owngpt-api.vercel.app/textify/api/generate', {
+        const response = await fetch('http://localhost:8000/textify/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,34 +22,33 @@ const Textify = () => {
         setLoading(false);
         let result = data.choices[0].text.trimStart();
         setText(result);
-
-        history(message, result);
-
+    
+        // Store history
+        const userId = JSON.parse(localStorage.getItem('user'))._id;
+        const historyData = {
+            userId,
+            app: 'Textify',
+            userInput: message,
+            aiOutput: result,
+        };
+        await fetch('http://localhost:8000/history', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(historyData),
+        });
     }
-
-
+    
 
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
         setCopied(true);
     }
 
-    const history = async (userInput, aiOutput) => {
-        const userId = JSON.parse(localStorage.getItem('user'))._id;
-console.log(userId);
-        let result = await fetch('https://owngpt-api.vercel.app/history', {
-            method: "POST",
-            body: JSON.stringify({ userId, userInput, aiOutput }),
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
-        result = await result.json();
-    }
-
     return (
         <div>
-            <div class="video">
+            <div className="video">
                 {/* <video width="320" height="240" muted loop autoplay>
                     <source src="/videos/textify-background.mp4" type="video/mp4" />
                     <source src="movie.ogg" type="video/ogg" />
@@ -58,24 +57,24 @@ console.log(userId);
             </div>
 
 
-            <section class="my-ai-from">
-                <div class="my-container">
-                    <div class="my-form">
-                        <p class="my-form-title">TEXTIFY</p>
-                        <div class="my-main-label-1">
-                            <label class="my-form-label"> Enter Your Prompt</label>
-                            <div class="input-group main-group">
-                                <input type="text" class="form-control" value={message} onChange={(e) => setMessage(e.target.value)} />
-                                <button className='btn btn-primary sentbtn' onClick={handleClick} disabled={!message}><span class="text">SEND</span><span class="text"><i
-                                    class="fa-solid fa-paper-plane"></i></span></button>
+            <section className="my-ai-from">
+                <div className="my-container">
+                    <div className="my-form">
+                        <p className="my-form-title">TEXTIFY</p>
+                        <div className="my-main-label-1">
+                            <label className="my-form-label"> Enter Your Prompt</label>
+                            <div className="input-group main-group">
+                                <input type="text" className="form-control" value={message} onChange={(e) => setMessage(e.target.value)} />
+                                <button className='btn btn-primary sentbtn' onClick={handleClick} disabled={!message}><span className="text">SEND</span><span className="text"><i
+                                    className="fa-solid fa-paper-plane"></i></span></button>
                             </div>
                         </div>
                         <div style={{ height: "50px" }}>{loading && <Spinner />}</div> 
-                        <div class="my-main-label-2">
-                            <label class="my-form-label">Your Answer</label>
-                            <textarea class="form-control" value={text} rows="10" disabled></textarea>
+                        <div className="my-main-label-2">
+                            <label className="my-form-label">Your Answer</label>
+                            <textarea className="form-control" value={text} rows="10" disabled></textarea>
                         </div>
-                        <button class="copybtn" onClick={handleCopy} style={{borderRadius: "0px"}}disabled={!text}>{copied ? "Copied !!" : "Copy"}</button>
+                        <button className="copybtn" onClick={handleCopy} style={{borderRadius: "0px"}}disabled={!text}>{copied ? "Copied !!" : "Copy"}</button>
                     </div>
                 </div>
             </section>
