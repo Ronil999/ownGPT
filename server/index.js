@@ -50,6 +50,8 @@ app.post("/login", async (req, res) => {
         if (user) {
             // Check if password is correct
             if (req.body.password === user.password) {
+                user = user.toObject();
+                delete user.password;
                 res.send(user)
             } else {
                 res.status(400).send({ error: "Incorrect password" });
