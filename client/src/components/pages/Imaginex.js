@@ -9,7 +9,7 @@ const Imaginex = () => {
 
     const handleClick = async () => {
         setLoading(true);
-        const response = await fetch('https://owngpt-api.vercel.app/imaginex/api/generate', {
+        const response = await fetch('http://localhost:8000/imaginex/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,24 +19,41 @@ const Imaginex = () => {
         const data = await response.json();
         setLoading(false);
         setImageUrls(data.data.map((item) => item.url));
+    
+        // Store history
+        const userId = JSON.parse(localStorage.getItem('user'))._id;
+        const historyData = {
+            userId,
+            app: 'Imaginex',
+            userInput: message,
+            aiOutput: data.data.map((item) => item.url),
+        };
+        await fetch('http://localhost:8000/history', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(historyData),
+        });
     };
+    
 
     return (
         <div>
-            <div class="video">
+            <div className="video">
                 <video src="/videos/imaginex-background.mp4" autoPlay loop muted />
             </div>
 
-            <section class="my-ai-from">
-                <div class="my-container">
-                    <div class="my-form">
-                        <p class="my-form-title">IMAGINEX</p>
-                        <div class="my-main-label-1">
-                            <label class="my-form-label"> Enter Your Prompt</label>
-                            <div class="input-group main-group">
+            <section className="my-ai-from">
+                <div className="my-container">
+                    <div className="my-form">
+                        <p className="my-form-title">IMAGINEX</p>
+                        <div className="my-main-label-1">
+                            <label className="my-form-label"> Enter Your Prompt</label>
+                            <div className="input-group main-group">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                 />
@@ -46,27 +63,26 @@ const Imaginex = () => {
                                     onClick={handleClick}
                                     disabled={!message}
                                 >
-                                    <span class="text">SEND</span>
-                                    <span class="text">
-                                        <i class="fa-solid fa-paper-plane"></i>
+                                    <span className="text">Generate</span>
+                                    <span className="text">
+                                        <i className="fa-solid fa-paper-plane"></i>
                                     </span>
                                 </button>
                             </div>
                             <div style={{ height: '50px' }}>{loading && <Spinner />}</div>
                             {imageUrls.length > 0 ? (
-                                <div class="main-imagespart">
+                                <><label className="my-form-label"> Your Generated Images</label><div className="main-imagespart">
                                     {imageUrls.map((url, index) => (
-                                        <div class="image-1">
+                                        <div className="image-1" key={index}>
                                             <img
-                                                key={index}
                                                 src={url}
-                                                alt={`Generated Image ${index + 1}`}
-                                            />
+                                                height={"218.5px"}
+                                                alt={`Generated Image ${index + 1}`} />
                                         </div>
                                     ))}
-                                </div>
+                                </div></>
                             ) : (
-                                <div class="main-imagespart">
+                                <div className="main-imagespart">
                                     <p className="imagebox"></p>
                                     <p className="imagebox"></p>
                                     <p className="imagebox"></p>
