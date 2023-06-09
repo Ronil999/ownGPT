@@ -9,7 +9,7 @@ const Imaginex = () => {
 
     const handleClick = async () => {
         setLoading(true);
-        const response = await fetch('http://localhost:8000/imaginex/api/generate', {
+        const response = await fetch('https://owngpt-api.vercel.app/imaginex/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const Imaginex = () => {
             userInput: message,
             aiOutput: data.data.map((item) => item.url),
         };
-        await fetch('http://localhost:8000/history', {
+        await fetch('https://owngpt-api.vercel.app/history', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
