@@ -13,7 +13,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 
-
 const app = express();
 
 app.use(express.json());
@@ -21,7 +20,7 @@ app.use(cors());
 
 app.get("/", async (req,res) => {
     res.send("App is Working");
-});
+})
 
 app.post("/register", async (req, res) => {
     // Check if all fields are filled
@@ -109,8 +108,4 @@ app.get("/history/:id", async (req, res) => {
     }
 })
 
-
-
-
-// module.exports = app;
 app.listen(8000);
