@@ -39,7 +39,7 @@ Go to the client & server directory
   cd server
 ```
 
-Install dependencies
+Install dependencies in Client & Server
 
 ```bash
   npm install
