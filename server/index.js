@@ -116,4 +116,55 @@ app.get("/history/:id", async (req, res) => {
     }
 })
 
+app.post('/contact', (req, res) => {
+    const nodemailer = require("nodemailer");
+
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+            user: 'strangerboy071.999@gmail.com',
+            pass: 'veqvypnxztjtrkrz'
+        }
+    });
+
+    // console.log(req.body);
+
+    // async..await is not allowed in global scope, must use a wrapper
+    async function main() {
+        // send mail with defined transport object
+        const info = await transporter.sendMail({
+            from: '"ownGPT Contact 👻" <strangerboy071.999@gmail.com>', // sender address
+            to: "ronilcoder999@gmail.com", // list of receivers
+            subject: req.body.subject, // Subject line
+            // text: "Hello world?", // plain text body
+            html: `
+            <table>
+      <tr>
+        <td><b>Name:</b></td>
+        <td>${req.body.name}</td>
+      </tr>
+      <tr>
+        <td><b>Email:</b></td>
+        <td>${req.body.email}</td>
+      </tr>
+      <tr>
+        <td><b>Phone Number:</b></td>
+        <td>${req.body.phone}</td>
+      </tr>
+      <tr>
+        <td><b>Message:</b></td>
+        <td>${req.body.message}</td>
+      </tr>
+    </table>
+            `
+        });
+        // console.log("Message sent: %s", info.messageId);
+    }
+    main().catch(console.error);
+    res.json({ success: true, message: "Your Response will Successfully send" });
+})
+
 app.listen(8000);
