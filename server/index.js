@@ -162,7 +162,7 @@ app.post('/contact', (req, res) => {
     </table>
             `
         });
-        // console.log("Message sent: %s", info.messageId);
+        console.log("Message sent: %s", info.messageId);
     }
     main().catch(console.error);
     res.json({ success: true, message: "Your Response will Successfully send" });
