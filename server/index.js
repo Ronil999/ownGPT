@@ -18,7 +18,12 @@ const openai = new OpenAIApi(configuration);
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+    origin: "https://owngpt-4.vercel.app", // Replace with your React app's domain
+  };
+  
+app.use(cors(corsOptions));
 
 app.get("/", async (req,res) => {
     res.send("App is Working");
@@ -116,7 +121,6 @@ app.get("/history/:id", async (req, res) => {
     }
 })
 
-app.use(cors());
 app.post('/contact', (req, res) => {
     const nodemailer = require("nodemailer");
 
