@@ -17,7 +17,7 @@ const Contact = () => {
         }
 
         else {
-            let result = await fetch('http://localhost:8000/contact', {
+            let result = await fetch('https://owngpt-api.vercel.app/contact', {
                 method: 'POST',
 
                 body: JSON.stringify({ name, subject, email, phone, message }),
