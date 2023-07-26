@@ -116,6 +116,7 @@ app.get("/history/:id", async (req, res) => {
     }
 })
 
+app.use(cors());
 app.post('/contact', (req, res) => {
     const nodemailer = require("nodemailer");
 
